@@ -1,0 +1,101 @@
+*{
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.register-form__content{
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.register-form{
+    width: 500px;
+    margin: 30px auto;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.register-form__header{
+    text-align: center;
+    margin: 0 0 25px 0;
+}
+
+.form-group{
+    width: 90%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.form-group-ttl{
+    margin: 25px 0;
+}
+
+label{
+    display: block;
+    text-align: left;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input{
+    width: 100%;
+    border: 1px solid #c9c8c8;
+    border-radius: 3px;
+    height: 35px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.register__button{
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.register__button-submit{
+    width: 100%;
+    background-color: #FF5555;
+    color: white;
+    height: 35px;
+    border: 1px solid #FF5555;
+    border-radius: 3px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.login{
+    width: 150px;
+    margin: 15px auto;
+    text-align: center;
+}
+
+a{
+    text-decoration: none;
+    color: #0073cc;
+}
+
+@media screen and (max-width:768px){
+    .register-form{
+        width: 90%;
+        margin: 30px auto;
+    }
+
+    .form-group{
+        width: 100%;
+    }
+
+    .register__button{
+        width: 100%;
+    }
+
+    .register__button-submit{
+        font-size: 14px;
+    }
+}
