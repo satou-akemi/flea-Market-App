@@ -24,7 +24,6 @@ class ListingTest extends TestCase
     {
         $user = User::factory()->create();
         $this->actingAs($user);
-
         $categories = Category::factory()->count(2)->create();
 
         $response = $this->get(route('product.listing'));
@@ -44,8 +43,9 @@ class ListingTest extends TestCase
         ];
 
         $response = $this->post(route('product.store') , $postData);
-
         $response->assertStatus(302);
+
+        $product = Product::latest()->first();
 
         Storage::disk('public')->assertExists('products/' . $file->hashName());
 
@@ -61,7 +61,7 @@ class ListingTest extends TestCase
         foreach($categories as $category){
             $this->assertDatabaseHas('category_product',[
                 'category_id' => $category->id,
-                'product_id' => Product::latest()->first()->id,
+                'product_id' => $product->id,
             ]);
         }
     }

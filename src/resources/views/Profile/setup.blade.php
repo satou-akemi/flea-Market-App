@@ -6,16 +6,16 @@
 <div class="profile__content">
 <!--プロフィール設定-->
     <div class="profile__content-ttl">
-        <h1>プロフィール設定</h1>
+        <h1 class="profile__content-ttl">プロフィール設定</h1>
     </div><!--profile__content-ttl-->
     <!--フォーム入力-->
     <form action="/update" class="form" method="post" enctype="multipart/form-data">
     @csrf
         <div class="user-information">
     <!--アバター-->
-            <div class="user__image">
-            <img src="{{ $user->avatar ? asset('img/avatar/' . $user->avatar) : asset('img/default-avatar.png') }}" alt="アバター" width="30" height="30">
-        </div><!--user__image-->
+    <div class="user__image">
+        <img src="{{ asset ($user->avatar ? 'storage/' . $user->avatar : 'img/default_avatar.png') }}" alt="アバター" width="30" height="30">
+    </div><!--user__image-->
         <div class="select__avatar">
             <label for="avatar" class="select-button">画像を選択する
                 <input type="file" name="avatar" id="avatar" class="d-none"></label>

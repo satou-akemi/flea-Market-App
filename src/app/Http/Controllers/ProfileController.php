@@ -29,7 +29,10 @@ class ProfileController extends Controller
         ->with('product')
         ->latest()
         ->get()
-        ->pluck('product');
+        ->pluck('product')
+        ->filter(fn($product) => $product && $product->isSold())
+        ->unique('id')
+        ->values();
 
         return view('Profile.show',compact('user','page','listedProduct','purchasedProduct'));
     }

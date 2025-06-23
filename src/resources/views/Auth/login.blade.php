@@ -10,7 +10,7 @@
             <h2>ログイン</h2>
         </div><!---login__title-->
 <!--ログインフォーム-->
-        <form action="/login" method="post" class="form">
+        <form action="{{ route('login') }}" method="post" class="form">
         @csrf
 <!--メールアドレス-->
             <div class="form-group">

@@ -84,7 +84,7 @@
                 @enderror
             </div><!--description__group-->
             <div class="price-wrapper">
-                <label class="description-text">
+                <label class="description-text">販売価格</label>
                     <input type="number"  name="price" placeholder="￥"  class="price-input">
                 @error('price')
                     <div class="error">{{$message}}</div>

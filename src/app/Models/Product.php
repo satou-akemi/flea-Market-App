@@ -22,6 +22,10 @@ class Product extends Model
         'brand_name',
     ];
 
+    protected $casts = [
+        'is_recommended' => 'boolean',
+    ];
+
     public function user(){
         return $this->belongsTo(User::class);
     }

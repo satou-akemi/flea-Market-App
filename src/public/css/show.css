@@ -12,7 +12,7 @@ a {
 }
 
 .user__image{
-    width: 120px;
+    width: 100px;
     flex-shrink: 0;
 }
 
@@ -29,27 +29,27 @@ a {
 
 .user_name{
     margin: 0;
-    font-size: 30px;
+    font-size: 25px;
     font-weight: bold;
 }
 
 .image-space{
-    width: 1000px;
-    margin: 40px auto;
-    padding: 0 40px;
+    width: 700px;
+    margin: 30px auto;
+    padding: 0 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 100px;
+    gap: 70px;
 }
 
 .edit-link{
-    width: 250px;
-    padding: 10px;
+    width: 180px;
+    padding: 8px;
     border: 1px solid #FF5555;
     border-radius: 10px;
     color: #FF5555;
-    font-size: 20px;
+    font-size: 14px;
     font-weight: bold;
     text-align: center;
     flex-shrink: 0;
@@ -60,47 +60,52 @@ a {
 }
 
 .tab-list{
-    max-width: 1512px;
+    max-width: 100%;
     width: 100%;
-    border-bottom: 3px solid #D9D9D9;
-    margin-bottom: 30px;
-
 }
 
 .tab-item{
     display: flex;
-    margin: 10px 50px;
-    padding: 10px 40px;
+    margin: 5px 0 20px 0;
     gap: 40px;
-    font-size: 23px;
+    font-size: 16px;
     font-weight: bold;
+    padding: 10px 30px;
+    border-bottom: 3px solid #D9D9D9;
 }
 
-.tab-sell a{
-    color: #D9D9D9;
-}
-
-.tab-buy a{
-    color: #FF5555;
-}
-
-li {
+.tab-item li{
     list-style: none;
-    margin-left: 30px;
+    margin-left: 40px;
+}
+
+.tab-item li a{
+    color: #d9d9d9;
+    text-decoration: none;
+    padding-bottom: 4px;
+    border-bottom: 3px solid transparent;
+}
+
+.tab-item li.active a{
+    color: #FF5555;
+    border-bottom: 3px solid #FF5555;
 }
 
 .product-list{
+    max-width: 1400px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    margin: 40px;
+    margin: 20px auto;
+    padding: 0 ;
 }
 
 .product {
-    width: 320px;
+    width: 250px;
     max-width: 100%;
     text-align: center;
-    margin-bottom: 20px;
+    padding: 20px 30px;
+    margin: 0 20px;
+
 }
 
 .product img {
@@ -111,7 +116,7 @@ li {
 }
 
 .product p {
-    font-size: 16px;
+    font-size: 14px;
     color: black;
     text-align: left;
 }

@@ -1,1 +1,5 @@
 src/*.sql
+# MySQL data
+docker/mysql/data/
+src/.config/
+src/.config/

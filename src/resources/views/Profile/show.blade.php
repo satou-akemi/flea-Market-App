@@ -7,7 +7,7 @@
 <div class="profile__content">
     <div class="image-space">
         <div class="user__image">
-            <img class="avatar-image" src="{{ asset($user->avatar ?'storage/avatar/' . $user->avatar :'img/default_avatar.png')}}" alt="avatar.jpg">
+            <img class="avatar-image" src="{{ asset($user->avatar ?'storage/' . $user->avatar :'img/default_avatar.png')}}" alt="avatar.jpg">
         </div><!--user__image-->
             <div class="user-info">
                 <h2 class="user_name">{{ $user->name }}</h2>
@@ -21,11 +21,11 @@
 <!--出品した商品-->
     <div class="tab-list">
         <ul class="tab-item">
-            <li class="{{$page === 'sell' ? 'active tab-sell' : '' }}">
+            <li class="{{$page === 'sell' ? 'active ' : '' }}">
                 <a href="{{ route('mypage',['page' => 'sell'])}}">出品した商品</a>
             </li>
 <!--購入した商品-->
-            <li class="{{ $page === 'buy' ? 'active tab-buy' : '' }}">
+            <li class="{{ $page === 'buy' ? 'active' : '' }}">
                 <a href="{{ route('mypage' , ['page' => 'buy']) }}">購入した商品</a>
             </li>
         </ul>
@@ -49,8 +49,10 @@
                     @if($product->isSold())
                         <span class="sold-label" style="position:absolute; top:8px; left:8px; background:#f00; color:#fff; padding:2px 6px; font-size:12px; border-radius:4px; ">SOLD</span>
                     @endif
-                    <img src="{{$product->image_path}}" alt="商品画像">
-                <p>{{$product->name}}</p>
+                    <a href="{{ route('product.show',['id' => $product->id])}}">
+                        <img src="{{$product->image_path}}" alt="商品画像">
+                    </a>
+                    <p>{{$product->name}}</p>
                 </div><!--product-->
                 @endforeach
             @endif

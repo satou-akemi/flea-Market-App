@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\Http\Requests\ExhibitionRequest;
 use Illuminate\Support\Facades\Auth;
@@ -35,6 +36,7 @@ class ProductController extends Controller
         $recommendedProducts = Product::where('is_recommended', true)
         ->where('user_id', '!=', $userId)
         ->get();
+
     } elseif ($tab === 'mylist') {
         $myListProducts = Auth::check() ? Auth::user()->likes()->get() : collect();
         //お気に入りリストを取得そうでない場合、空のリストを用意してエラー回避
@@ -62,8 +64,11 @@ class ProductController extends Controller
         $product->description = $request->input('description');
         $product->price =$request->input('price');
         $product->condition = $request->input('condition');
+        $product->is_recommended = 1;
         $product->user_id = Auth::id();
         //ログインしてるユーザID
+
+        $product->status = 'on_sale';
 
         if($request->hasFile('image_path')){
             $path = $request->file('image_path')->store('products','public');
@@ -75,5 +80,6 @@ class ProductController extends Controller
 
         return redirect()->route('product.index');
     }
+
 
 }

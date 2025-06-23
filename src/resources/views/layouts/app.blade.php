@@ -35,13 +35,11 @@
                     <li><a class="sell__link" href="/sell">出品</a></li>
             @else
                     <li>
-                    <form method="POST" action="{{ route('login') }}">
-                    @csrf
-                        <button type="submit" class="logout-button">ログイン</button>
+                    <li><a href="{{ route('login') }}" class="login-button">ログイン</a></li>
                     </form>
                     </li>
                     <li><a href="{{ route('mypage') }}" class="mypage__link">マイページ</a></li>
-                    <li><a class="sell__link" href="/sell">出品</a></li>
+                    <li><a class="sell__link" href="{{ route('login') }}">出品</a></li>
                 @endif
         </ul>
     </nav>

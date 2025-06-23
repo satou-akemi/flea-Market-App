@@ -4,7 +4,7 @@
 }
 
 .login__form{
-    width: 700px;
+    width: 500px;
     max-width: 100%;
     margin: 0 auto;
 }
@@ -18,13 +18,13 @@
     max-width: 700px;
     width: 100%;
     height: auto;
-    margin: 25px auto;
+    margin: 15px auto;
 }
 
 label {
     display: block;
     text-align: left;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
     margin-bottom: 5px;
 }
@@ -32,11 +32,11 @@ label {
 input {
     width: 100%;
     border: 1px solid #c9c8c8;
-    border-radius: 3px;
+    border-radius: 5px;
     height: 35px;
     padding: 10px;
     box-sizing: border-box;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
 }
 
 .login__button{

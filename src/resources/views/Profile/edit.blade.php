@@ -18,7 +18,7 @@
         <div class="user-information">
     <!--アバター-->
             <div class="user__image">
-                <img class="avatar-image" src="{{ asset($user->avatar ?'storage/avatar/' .$user->avatar : 'img/default_avatar.png') }}" alt="avatar.jpg" >
+                <img class="avatar-image" src="{{ asset($user->avatar ?'storage/' .$user->avatar : 'img/default_avatar.png') }}" alt="avatar.jpg" >
         </div><!--user__image-->
 
         <div class="select__avatar">

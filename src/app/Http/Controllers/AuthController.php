@@ -11,38 +11,6 @@ use App\Models\User;
 
 class AuthController extends Controller
 {
-    public function showLoginForm(){
-        return view('Auth.login');
-    }
-
-    public function login(LoginRequest $request){
-        $credentials = $request->only('email','password');
-
-        $user = \App\Models\User::where('email', $credentials['email'])->first();
-
-        if (!$user) {
-            return back()->withErrors([
-                'email' => 'ユーザーが存在しません',
-            ]);
-        }
-
-        if (!\Illuminate\Support\Facades\Hash::check($credentials['password'], $user->password)) {
-            return back()->withErrors([
-                'password' => 'パスワードが違います',
-            ]);
-        }
-
-        if (!$user->hasVerifiedEmail()) {
-            return back()->withErrors([
-                'email' => 'メール認証が完了していません。メールをご確認ください。',
-            ]);
-        }
-        \Illuminate\Support\Facades\Auth::login($user);
-        \Log::info('ログインしました：' . Auth::id());
-
-        return redirect('/');
-    }
-
     public function showRegisterForm(){
         return view('Auth.register');
     }
@@ -56,11 +24,11 @@ class AuthController extends Controller
 
         $user->sendEmailVerificationNotification();
 
-        //Auth::login($user);
+        Auth::login($user);
 
         //このユーザーでログイン状態にする
 
-        return redirect('/setup');
+        return redirect('/thanks');
     }
 
 }

@@ -57,5 +57,9 @@ class FortifyServiceProvider extends ServiceProvider
         $email = (string) $request->email;
         return Limit::perMinute(10)->by($email . $request->ip());
     });
+
+    Fortify::loginView(function () {
+        return view('Auth.login');
+    });
 }
 }

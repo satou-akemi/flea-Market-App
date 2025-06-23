@@ -6,18 +6,16 @@
 
 @section('content')
 <div class="product-index">
-    <div class="tab-button">
         <ul class="tab__items">
 <!--おすすめ-->
-            <li class="{{ $tab === 'recommend' ? 'active tab-recommend' : '' }}">
+            <li class="{{ $tab === 'recommend' ? 'active' : '' }}">
                 <a href="{{ route('product.index', ['tab' => 'recommend']) }}">おすすめ</a>
             </li>
 <!--マイリスト-->
-            <li class="{{ $tab === 'mylist' ? 'active tab-mylist' : '' }}">
+            <li class="{{ $tab === 'mylist' ? 'active' : '' }}">
                 <a href="{{ route('product.index' , ['tab' => 'mylist', 'keyword' => request('keyword')]) }}">マイリスト</a>
             </li>
         </ul>
-    </div><!--tab-buttons-->
     <div class="product-list">
     @if(request('keyword'))
     @foreach($products as $product)

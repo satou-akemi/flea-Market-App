@@ -15,14 +15,14 @@ body {
 
 .register-form{
     width: 500px;
-    margin: 30px auto;
+    margin: 20px auto;
     max-width: 100%;
     box-sizing: border-box;
 }
 
 .register-form__header{
     text-align: center;
-    margin: 0 0 25px 0;
+    margin: 0 0 15px 0;
 }
 
 .form-group{
@@ -32,30 +32,28 @@ body {
 }
 
 .form-group-ttl{
-    margin: 25px 0;
+    margin: 15px 0;
 }
 
 label{
     display: block;
     text-align: left;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
-    margin-bottom: 5px;
 }
 
 input{
     width: 100%;
     border: 1px solid #c9c8c8;
-    border-radius: 3px;
-    height: 35px;
+    border-radius: 5px;
+    height: 30px;
     padding: 10px;
-    box-sizing: border-box;
 }
 
 .register__button{
     width: 100%;
     max-width: 500px;
-    margin: 0 auto;
+    margin-top: 40px;
 }
 
 .register__button-submit{
@@ -68,12 +66,14 @@ input{
     font-size: 15px;
     font-weight: bold;
     cursor: pointer;
+    margin: 10px 0;
 }
 
 .login{
-    width: 150px;
-    margin: 15px auto;
+    width: 130px;
+    margin: 5px auto;
     text-align: center;
+    font-size: 14px;
 }
 
 a{

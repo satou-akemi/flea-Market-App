@@ -35,7 +35,11 @@
     </div><!--action__button-->
 <!--購入ボタン-->
             <div class="purchase__button">
-                <a href="{{ route('order.create',['id' => $product->id])}}" class="purchase__button-submit">購入手続きへ</a>
+                @if(!$product->issold())
+                    <a href="{{ route('order.create',['id' => $product->id])}}" class="purchase__button-submit">購入手続きへ</a>
+                @else
+                    <button class="purchase__disabled-submit" type="submit">購入済み</button>
+                @endif
             </div><!--purchase__button-->
 <!--商品説明-->
         <h2 class="product__explanation">商品説明</h2>
@@ -65,7 +69,7 @@
                 @if($comment->user)
                     <div class="comment__block">
                         <div class="avatar">
-                        <img src="{{ asset($comment->user->avatar ? 'storage/avatar/' . $comment->user->avatar : 'img/default_avatar.png') }}" alt="アバター" width="40" height="40">
+                        <img src="{{ asset($comment->user->avatar ? 'storage/' . $comment->user->avatar : 'img/default_avatar.png') }}" alt="アバター" width="40" height="40">
                         <div class="comment--profile">
                             <span>{{ $comment->user->name }}</span>
                         </div>
@@ -78,12 +82,16 @@
             @endforeach
 <!--コメントの内容が入る-->
             <label for="comment">商品へのコメント</label>
-            <textarea name="body" class="product__comment-space"></textarea>
+            <textarea name="body" id="comment" class="product__comment-space"></textarea>
             @error('body')
                 <div class="error">{{ $message }}</div>
             @enderror
                 <div class="comment__button">
+                @if(!$product->isSold())
                     <button class="comment__button-submit" type="submit">コメントを送信する</button>
+                @else
+                <button class="comment__not-submit" type="submit" disabled>コメントできません</button>
+                @endif
                 </div><!--comment__button-->
             </div><!--content--right-->
         </form>
