@@ -52,7 +52,6 @@ class ProductController extends Controller
 
     public function listing(Request $request){
         $categories = Category::all();
-        $categoryIds = $request->input('category_ids');
 
         return view('Product.listing',compact('categories'));
     }
@@ -74,9 +73,11 @@ class ProductController extends Controller
             $path = $request->file('image_path')->store('products','public');
             $product->image_path = 'storage/' . $path;
             //画像保存先までのパス
+            //public->config/filesystems.comで [public_path('storage') => storage_path('app/public'),],で定義されている
         }
         $product->save();
         $product->categories()->sync($request->input('category_ids',[]));
+        //sync 中間テーブルを配列に合わせて更新
 
         return redirect()->route('product.index');
     }

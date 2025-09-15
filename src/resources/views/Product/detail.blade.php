@@ -21,7 +21,7 @@
                 <form action="{{ route('like',$product->id) }}" method="post">
                 @csrf
                     <button type="submit" class="like-button {{(Auth::user()->hasLikes($product) ? 'liked' : '') }}">
-                    ☆
+                    ♡
                     </button>
                     <p class="count">{{$product->likes()->count()}}</p>
                 </form>
@@ -29,7 +29,7 @@
         </div><!--like__action--button-->
 <!--コメント-->
         <div class="comment__action--button">
-            <a href="#comments" class="comment-button">💬</a>
+            <a href="#comment" class="comment-button">💭</a>
             <p class="count">{{ $product->comments()->count() }}</p>
         </div><!--comment__action--button-->
     </div><!--action__button-->

@@ -47,7 +47,7 @@
         @foreach($recommendedProducts as $product)
             <div class="product" style="position:relative;">
                 @if($product->isSold())
-                    <span class="sold-label" style="position:absolute; top:8px; left:8px; background:#f00; color:#fff; padding:2px 6px; font-size:12px; border-radius:4px;">SOLD</span>
+                    <span class="sold-label"style="position:absolute; top:8px; left:8px; background:#f00; color:#fff; padding:2px 6px; font-size:12px; border-radius:4px;">SOLD</span>
                 @endif
                 <a href="{{ route('product.show',['id' => $product->id])}}">
                     <img src="{{ $product->image_path }}" alt="商品画像">

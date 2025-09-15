@@ -66,7 +66,7 @@ body {
     gap: 15px;
 }
 
-.logout-button {
+.login__button {
     background-color: transparent;
     border: none;
     color: white;

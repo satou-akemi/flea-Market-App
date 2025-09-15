@@ -13,12 +13,12 @@
 @endif
 
 <div class="messages">
-    <p>登録していただいたメールアドレスに認証メールを送付しました</p>
-    <p>メール認証を完了させてください</p>
+    このページを閲覧するには、Eメールによる認証が必要です。<br/>
+    もし認証用のメールを受け取っていない場合、
 </div>
 
 <div class="message__button">
-    <p>認証はこちらから</p>
+    <a href="http://localhost:8025" target="_blank">認証はこちらから</a>
 </div>
 
 <div class="resend">

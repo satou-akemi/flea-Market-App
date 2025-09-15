@@ -69,7 +69,6 @@ class ProfileController extends Controller
             $address = new \App\Models\Address();
             $address->user_id = $user->id;
         }
-
         $address->postal_code =$request->input('postal_code');
         $address->prefecture = $request->input('prefecture');
         $address->city = $request->input('city');

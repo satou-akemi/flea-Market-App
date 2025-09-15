@@ -21,6 +21,7 @@ class LikeController extends Controller
     }
     return redirect()->back();
 }
+//exists():存在するか確認
 
 public function show($id)
 {

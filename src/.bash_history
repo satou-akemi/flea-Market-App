@@ -204,3 +204,16 @@ cd ../
 php artisan tinker
 git status
 exit
+docker-compose ps
+exit
+php artisan config:clear
+php artisan cache:clear
+php artisan route:clear
+php artisan tinker
+php artisan tinker
+exit
+php artisan tinker
+whoami
+cat /etc/passwd | grep bash
+exit
+exit

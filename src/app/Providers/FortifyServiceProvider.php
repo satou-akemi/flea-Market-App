@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use App\Actions\Fortify\CreateNewUser;
-use App\Http\Requests\RegisterRequest;
 use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
 use App\Actions\Fortify\UpdateUserProfileInformation;
@@ -15,6 +14,10 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Fortify\Fortify;
 use App\Models\User;
+use App\Http\Requests\LoginRequest;
+use Laravel\Fortify\Http\Requests\LoginRequest as FortifyLoginRequest;
+use Laravel\Fortify\Contracts\RegisterResponse;
+
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -23,31 +26,23 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->instance(RegisterResponse::class, new class implements RegisterResponse {
+            public function toResponse($request)
+            {
+                return redirect('/mypage/profile');
+            }
+        });
     }
 
     /**
      * Bootstrap any application services.
      */
-    public function boot()
+    public function boot():void
 {
-    Fortify::authenticateUsing(function (Request $request) {
-        $user = User::where('email', $request->email)->first();
-
-        if (
-            $user &&
-            Hash::check($request->password, $user->password) &&
-            $user->hasVerifiedEmail()
-        ) {
-            return $user;
-        }
-        return null;
-    });
-    //Fortify::createUsersUsing(CreateNewUser::class);
-
-    Fortify::registerView(function () {
-        return view('Auth.register');
-    });
+    Fortify::createUsersUsing(CreateNewUser::class);
+        Fortify::registerView(function () {
+                return view('Auth.register');
+        });
 
     Fortify::loginView(function () {
         return view('Auth.login');
@@ -58,8 +53,6 @@ class FortifyServiceProvider extends ServiceProvider
         return Limit::perMinute(10)->by($email . $request->ip());
     });
 
-    Fortify::loginView(function () {
-        return view('Auth.login');
-    });
-}
+    app()->bind(FortifyLoginRequest::class, LoginRequest::class);
+    }
 }

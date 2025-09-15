@@ -23,7 +23,7 @@
 <!--メールアドレス-->
                 <div class="form-group-ttl">
                     <label>メールアドレス
-                    <input type="text" name="email" value="{{ old('email') }}"></label>
+                    <input type="email" name="email" value="{{ old('email') }}"></label>
                     @error('email')
                     <div class="error">{{$message}}</div>
                     @enderror

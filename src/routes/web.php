@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AddressController;
@@ -46,8 +46,8 @@ Route::get('/order/purchase/{id}', [OrderController::class, 'purchase'])->name('
 });
 
 //認証関連
-Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register.form');
-Route::post('/register', [AuthController::class, 'register'])->name('register');
+//Route::get('/register', [AuthController::class, 'store'])->name('store');
+Route::post('/register', [RegisterController::class, 'store'])->name('store');
 Route::get('/thanks', function () {
 return view('thanks');
 })->name('thanks');

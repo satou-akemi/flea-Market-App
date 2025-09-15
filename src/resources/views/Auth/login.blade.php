@@ -4,14 +4,14 @@
 @endsection
 @section('content')
 
+<!--ログインフォーム-->
+<form action="{{ route('login') }}" method="post" class="form">
+    @csrf
 <div class="login__content">
     <div class="login__form">
         <div class="login__title">
             <h2>ログイン</h2>
         </div><!---login__title-->
-<!--ログインフォーム-->
-        <form action="{{ route('login') }}" method="post" class="form">
-        @csrf
 <!--メールアドレス-->
             <div class="form-group">
                 <label>メールアドレス</label>
