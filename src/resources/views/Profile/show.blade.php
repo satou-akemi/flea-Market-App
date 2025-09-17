@@ -11,11 +11,21 @@
         </div><!--user__image-->
             <div class="user-info">
                 <h2 class="user_name">{{ $user->name }}</h2>
+                <div class="user-rating">
+                @for($i = 1; $i <= 5; $i++)
+                    @if($i <= $user->average_rating)
+                        <span class="star-filled">★</span>
+                    @else
+                        <span class="star">★</span>
+                    @endif
+                @endfor
+                </div>
             </div><!--user-info-->
         <div class="edit-link">
             <a href="/mypage/profile" class="edit-link__button">プロフィールを編集</a>
         </div><!--edit-link-->
     </div><!--image-space-->
+
 
 <!--切り替えタグ-->
 <!--出品した商品-->
@@ -27,6 +37,13 @@
 <!--購入した商品-->
             <li class="{{ $page === 'buy' ? 'active' : '' }}">
                 <a href="{{ route('mypage' , ['page' => 'buy']) }}">購入した商品</a>
+            </li>
+<!--取引中-->
+            <li class="{{ $page === 'deal' ? 'active' : ''}}"><a href="{{ route('mypage'  , ['page' => 'deal'])}}">取引中
+                @foreach($deal as $order)
+                    <span>{{ $order->messages->count() }}</span>
+                @endforeach
+            </a>
             </li>
         </ul>
     </div><!--tab-list-->
@@ -44,7 +61,7 @@
             </div><!--product-->
             @endforeach
         @elseif($page === 'buy')
-                @foreach($purchasedProduct as $product)
+            @foreach($purchasedProduct as $product)
                 <div class="product" style="position:relative;">
                     @if($product->isSold())
                         <span class="sold-label" style="position:absolute; top:8px; left:8px; background:#f00; color:#fff; padding:2px 6px; font-size:12px; border-radius:4px; ">SOLD</span>
@@ -54,8 +71,18 @@
                     </a>
                     <p>{{$product->name}}</p>
                 </div><!--product-->
-                @endforeach
-            @endif
+            @endforeach
+        @elseif($page === 'deal')
+            @foreach($deal as $order)
+                <div class="product">
+                    <a href="{{ route('message.show',['id' => $order->id])}}">
+                        <img src="{{asset($order->product->image_path) }}" alt="商品画像">
+                        <span>{{$order->messages->count()}}
+                        </span>
+                    </a>
+                </div>
+            @endforeach
+        @endif
     </div><!--product-list-->
 </div><!--profile__content-->
 @endsection

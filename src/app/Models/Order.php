@@ -18,6 +18,7 @@ class Order extends Model
         'address_id',
         'payment_id',
         'payment_method',
+        'is_dealing',
     ];
 
 
@@ -29,5 +30,13 @@ class Order extends Model
     public function product()
 {
     return $this->belongsTo(Product::class);
+}
+    public function messages()
+{
+    return $this->hasMany(Message::class);
+}
+    public function reviews()
+{
+    return $this->hasMany(ProductReview::class);
 }
 }

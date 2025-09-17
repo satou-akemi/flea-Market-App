@@ -36,7 +36,7 @@ class ProductsTableSeeder extends Seeder
         ],
 
         [
-            'user_id' => 2,
+            'user_id' => 1,
             'name' => 'HDD',
             'price' => '5000',
             'description' => '高速で信頼性の高いハードディスク',
@@ -49,7 +49,7 @@ class ProductsTableSeeder extends Seeder
         ],
 
         [
-            'user_id' => 3,
+            'user_id' => 1,
             'name' => '玉ねぎ３束',
             'price' => '300',
             'description' => '新鮮な玉ねぎ３束のセット',
@@ -62,7 +62,7 @@ class ProductsTableSeeder extends Seeder
         ],
 
         [
-            'user_id' => 4,
+            'user_id' => 1,
             'name' => '革靴',
             'price' => '4000',
             'description' => 'クラシックなデザインの革靴',
@@ -75,7 +75,7 @@ class ProductsTableSeeder extends Seeder
         ],
 
         [
-            'user_id' => 5,
+            'user_id' => 1,
             'name' => 'ノートPC',
             'price' => '45000',
             'description' => '高機能なノートパソコン',
@@ -88,7 +88,7 @@ class ProductsTableSeeder extends Seeder
         ],
 
         [
-            'user_id' => 6,
+            'user_id' => 2,
             'name' => 'マイク',
             'price' => '8000',
             'description' => '高音質のレコーディング用マイク',
@@ -101,7 +101,7 @@ class ProductsTableSeeder extends Seeder
         ],
 
         [
-            'user_id' => 7,
+            'user_id' => 2,
             'name' => 'ショルダーバッグ',
             'price' => '3500',
             'description' => 'おしゃれなショルダーバッグ',
@@ -114,7 +114,7 @@ class ProductsTableSeeder extends Seeder
         ],
 
         [
-            'user_id' => 8,
+            'user_id' => 2,
             'name' => 'タンブラー',
             'price' => '500',
             'description' => '使いやすいタンブラー',
@@ -127,7 +127,7 @@ class ProductsTableSeeder extends Seeder
         ],
 
         [
-            'user_id' => 9,
+            'user_id' => 2,
             'name' => 'コーヒーミル',
             'price' => '4000',
             'description' => '手動のコーヒーミル',
@@ -140,7 +140,7 @@ class ProductsTableSeeder extends Seeder
         ],
 
         [
-            'user_id' => 10,
+            'user_id' => 2,
             'name' => 'メイクセット',
             'price' => '2500',
             'description' => '便利なメイクセットアップ',

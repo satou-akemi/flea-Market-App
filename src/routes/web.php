@@ -8,6 +8,7 @@ use App\Http\Controllers\AddressController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\MessageController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 
@@ -80,4 +81,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/checkout', [OrderController::class, 'checkout'])->name('order.checkout');
     Route::get('/success', [OrderController::class, 'success'])->name('order.success');
     Route::get('/cancel', [OrderController::class, 'cancel'])->name('order.cancel');
+
+    Route::get('/message/{id}',[MessageController::class,'show'])->name('message.show');
+    Route::post('/message/{id}',[MessageController::class,'show'])->name('message.store');
 });

@@ -61,6 +61,20 @@ class User extends Authenticatable implements MustVerifyEmail//ここ
     return $this->hasManyThrough(Product::class, Order::class, 'user_id', 'id', 'id', 'product_id');
     }
 
+    public function messages(){
+        return $this->hasMany(Message::class);
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(ProductReview::class);
+    }
+
+    public function averageRating()
+    {
+        return round($this->reviews()->avg('rating'));
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *
