@@ -222,3 +222,5 @@ exit
 exit
 php artisan make:seeder TestUsersSeederTable.php
 exit
+docker-compose exec -u root php bash
+exit

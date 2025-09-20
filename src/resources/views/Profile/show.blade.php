@@ -39,10 +39,8 @@
                 <a href="{{ route('mypage' , ['page' => 'buy']) }}">購入した商品</a>
             </li>
 <!--取引中-->
-            <li class="{{ $page === 'deal' ? 'active' : ''}}"><a href="{{ route('mypage'  , ['page' => 'deal'])}}">取引中
-                @foreach($deal as $order)
-                    <span>{{ $order->messages->count() }}</span>
-                @endforeach
+            <li class="{{ $page === 'deal' ? 'active' : ''}}">
+                <a href="{{ route('mypage'  , ['page' => 'deal'])}}">取引中の商品<span class="dealing">{{ count($deal) }}</span>
             </a>
             </li>
         </ul>
@@ -74,10 +72,10 @@
             @endforeach
         @elseif($page === 'deal')
             @foreach($deal as $order)
-                <div class="product">
+                <div class="deal-product">
                     <a href="{{ route('message.show',['id' => $order->id])}}">
                         <img src="{{asset($order->product->image_path) }}" alt="商品画像">
-                        <span>{{$order->messages->count()}}
+                        <span>{{$order->unreadMessagesCountForUser()}}
                         </span>
                     </a>
                 </div>

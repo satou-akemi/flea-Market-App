@@ -81,7 +81,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/checkout', [OrderController::class, 'checkout'])->name('order.checkout');
     Route::get('/success', [OrderController::class, 'success'])->name('order.success');
     Route::get('/cancel', [OrderController::class, 'cancel'])->name('order.cancel');
-
+//message
     Route::get('/message/{id}',[MessageController::class,'show'])->name('message.show');
-    Route::post('/message/{id}',[MessageController::class,'show'])->name('message.store');
+    Route::post('/send/{id}',[MessageController::class,'store'])->name('message.store');
+
+//edit,delete
+    Route::get('/message/{id}/edit',[MessageController::class,'edit'])->name('message.edit');
+    Route::delete('/message/{id}',[MessageController::class,'destroy'])->name('message.destroy');
+//その他商品
+    Route::get('/message/others/{id}',[MessageController::class,'show'])->name('others.show');
 });
