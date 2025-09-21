@@ -131,11 +131,15 @@
                     <p class="user-name">{{$message->user->name}}</p>
                 </div><!--user-info-->
                     <p class="message-text">{{$message->message_text}}</p>
+                    @if($message->image_path)
+                    <img src="{{ asset('storage/' . $message->image_path) }}" alt="message image">
+                @endif
                 </div><!--other-message-->
             </div><!--chat-message-->
         @endif
     @endforeach
         <footer class="message-footer">
+<!--form-->
             <form action="{{ route('message.store',['id' => $order->id]) }}" method="POST" class="deal-message" enctype="multipart/form-data">
             @csrf
             <div class="error">
@@ -145,13 +149,13 @@
             </div>
                 <input type="text" name="message_text" value="{{ old('message_text')}} " placeholder="取引メッセージを記入してください">
 
-                <!-- 画像追加ボタン -->
+<!-- 画像追加ボタン -->
                 <label for="file-input">画像を追加
                 </label>
                 <input type="file" name="add-image" id="file-input" class="d-none">
 
-                <!-- プレビュー画像 -->
-                <img src="" alt="プレビュー画像" id="preview" class="preview" style="display:none; max-width:150px; margin-top:5px;">
+<!-- プレビュー画像 -->
+                <img src="" alt="プレビュー画像" id="preview" class="preview" style="display:none">
                 <button type="submit">
                     <img src="{{asset('img/send.jpg')}}" alt="" class="send-img">
                 </button>
@@ -199,33 +203,34 @@
         });
     }
 
-    // モーダル内送信ボタンで閉じる（送信はフォームの submit で）
     document.querySelectorAll('.model-submit').forEach(button => {
         button.addEventListener('click', () => {
-            const modal = button.closest('.model');
+            const modal = submit.closest('.model');
             if(modal) modal.style.display = 'none';
-            // そのままフォーム送信する場合は type="submit" に変更してください
         });
     });
-    const fileInput = document.querySelector('#file-input');
-    const previewImage = document.querySelector('#preview');
 
-    if(fileInput && previewImage){
-        fileInput.addEventListener('change', () => {
-            const file = fileInput.files[0];
-            if(file){
-                const reader = new FileReader();
-                reader.onload = e => {
-                    previewImage.src = e.target.result;
-                    previewImage.style.display = 'block';
-                };
-                reader.readAsDataURL(file);
-            } else {
-                previewImage.src = '';
-                previewImage.style.display = 'none';
-            }
-        });
-    }
+    const fileInput = document.querySelector('#file-input');
+const previewImage = document.querySelector('#preview');
+
+if(fileInput && previewImage){
+    fileInput.addEventListener('change', () => {
+        const file = fileInput.files[0];
+        if(file){
+            const reader = new FileReader();
+            reader.onload = e => {
+                previewImage.src = e.target.result;
+                previewImage.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        } else {
+            previewImage.src = '';
+            previewImage.style.display = 'none';
+        }
+    });
+}
+
+
 });
 
 </script>
