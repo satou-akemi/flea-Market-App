@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ProfileRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Order;
 
 class ProfileController extends Controller
 {
@@ -34,7 +35,23 @@ class ProfileController extends Controller
         ->unique('id')
         ->values();
 
-        return view('Profile.show',compact('user','page','listedProduct','purchasedProduct'));
+        $dealAsBuyer = $user->orders()->where('is_dealing',true)->with('product','messages')->get();
+
+        $sellerProductIds = $user->products()->pluck('id');
+        $dealAsSeller = Order::whereIn('product_id',$sellerProductIds)->where('is_dealing',true)->with('product','messages')->get();
+
+        $deal = $dealAsBuyer->merge($dealAsSeller);
+
+        $deal = $deal->sortByDesc(function ($order){
+        $latestMessage = $order->messages->sortByDesc('created_at')->first();
+        if($latestMessage){
+            return $latestMessage->created_at;
+        }else{
+            return null;
+        }
+        });
+
+        return view('Profile.show',compact('user','page','listedProduct','purchasedProduct','deal'));
     }
 
     public function __construct(){

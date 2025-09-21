@@ -217,3 +217,10 @@ whoami
 cat /etc/passwd | grep bash
 exit
 exit
+cat docker-compose.yml | grep php -A 5
+exit
+exit
+php artisan make:seeder TestUsersSeederTable.php
+exit
+docker-compose exec -u root php bash
+exit

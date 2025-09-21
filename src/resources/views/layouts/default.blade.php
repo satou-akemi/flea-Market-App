@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="{{ asset('css/sanitize.css')}}"/>
     <link rel="stylesheet" href="{{ asset('css/default.css')}}"/>
     @yield('css')
+    @yield('js')
 </head>
 <body>
     <header class="header">
