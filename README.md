@@ -37,6 +37,6 @@ Stripeのテスト用キーは `.env` に設定されています。
 ●Laravel 8.83 29
 ●MySQL 8.0.26
 
-##ER 図
-\\wsl.localhost\Ubuntu\home\aiko15\coachtech\exam-file\fleamarket-app\src\resources\views\readme.drawio.png
+![ER図](resources/views/readme.drawio.png)
+
 
