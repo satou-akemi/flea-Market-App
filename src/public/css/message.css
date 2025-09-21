@@ -90,10 +90,12 @@ aside {
     font-size: 18px;
     font-weight: bold;
     padding: 12px 0;
+    cursor: pointer;
 }
 
 .dummy-btn{
     visibility: hidden;
+    display: inline-block;
 }
 
 .product-information {

@@ -1,15 +1,20 @@
-.model{
+.model {
     position: fixed;
     left: 55%;
     top: 60%;
     transform: translateX(-50%) translateY(-50%);
     width: fit-content;
     height: auto;
-    padding: 0;
+    display: none;
     border: 1px solid black;
     border-radius: 20px;
+    justify-content: center;
+    z-index: 1000;
     background-color: #FDFCE6;
-    display: none;
+}
+
+.model.show {
+    display: flex;
 }
 
 .model h2{
@@ -27,7 +32,7 @@
     margin: 0;
 }
 
-#star{
+.star-container{
     padding: 0 15px;
     border-bottom: 1px solid black;
 }

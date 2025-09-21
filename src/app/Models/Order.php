@@ -19,6 +19,7 @@ class Order extends Model
         'payment_id',
         'payment_method',
         'is_dealing',
+        'buyer_id'
     ];
 
 
@@ -51,4 +52,13 @@ class Order extends Model
             return $this->messages()->where('is_read_buyer',false)->count();
         }
     }
+
+    public function buyer() {
+    return $this->belongsTo(User::class, 'buyer_id');
+    }
+
+    public function seller() {
+    return $this->belongsTo(User::class, 'product.user_id');
+    }
+
 }

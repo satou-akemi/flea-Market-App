@@ -22,4 +22,8 @@ public function user(){
 public function order(){
     return $this->belongsTo(Order::class);
 }
+
+public function review(){
+        return $this->belongsTo(Review::class);
+    }
 }
