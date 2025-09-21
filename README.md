@@ -10,6 +10,23 @@ Fleamarket App
 ●php artisan migrate
 ●php artisan db:seed
 
+##テストユーザー情報
+開発、動作確認用に用意したユーザーです
+| 名前  | メールアドレス         | パスワード    | 役割           |
+|-------|----------------------|-------------|----------------|
+|  ユーザー1| user1@test.com    | password | 出品者         |
+| ユーザー2   | user2@test.com      | password | 出品者         |
+| ユーザー3 | user3@test.com    | password | 購入者 |
+
+パスワードはすべて 'password' に設定しています。
+
+### Stripeテスト用APIキー
+テスト用に設定しているStripeキーです。
+Stripeのテスト用キーは `.env` に設定されています。
+
+- 公開可能キー（Publishable Key）: pk_test_51RaVQX2Q9hCCkoB2JBXOTz2IuVsV0F25wDZlfz5PLNJAMAghX2PL1fWbNLiojpIQTw7NPyd4lDM9bA4dPkCDC9MC00ZNdkC4Lf
+- シークレットキー（Secret Key）: `STRIPE_SECRET`
+
 ##URL
 ● 開発画面 : http://localhost/
 ● 新規登録 : http://localhost/register
