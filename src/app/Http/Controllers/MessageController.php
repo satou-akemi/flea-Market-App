@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\MessageRequest;
 use App\Models\Message;
 use App\Models\User;
 use App\Models\Order;
 
 class MessageController extends Controller
 {
-    public function show($id){
+    public function show(Request $request,$id){
         $order = Order::with('product','messages')->findOrFail($id);
 
         $user = auth()->user();
@@ -35,16 +36,16 @@ class MessageController extends Controller
         return view('Order.message',compact('order','user','status','orders','client','messages','order'));
     }
 
-    public function store(Request $request,$id){
+    public function store(MessageRequest $request,$id){
         $order = Order::findOrFail($id);
-
         $message = new Message();
         $message->user_id = auth()->id();
         $message->order_id = $order->id;
         $message->message_text = $request->input('message_text');
+
         if($request->hasFile('add-image')){
-            $path = $request->file('add-image')->store('messages','public');
-            $message->image_path = $path;
+        $path = $request->file('add-image')->store('messages','public');
+        $message->image_path = $path;
         }
         $message->save();
 

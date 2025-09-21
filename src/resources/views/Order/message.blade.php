@@ -1,6 +1,7 @@
 @extends('layouts.default')
 @section('css')
 <link rel="stylesheet" href="{{asset('css/message.css')}}">
+<link rel="stylesheet" href="{{asset('css/review.css')}}">
 @endsection
 
 @section('content')
@@ -24,7 +25,33 @@
             <img src="{{ asset($user->avatar ? 'storage/' . $user->avatar : 'img/default_avatar.png')}}" alt="avatar.jpg">
         </div>
             <h1 class="deal-title">「{{$client->name}}」さんとの取引画面</h1>
-            <a href="/">取引を終了する</a>
+                @if($status == 'is_buyer')
+                    <button class="deal-submit"type="submit" id="openModel" class="finish-btn">取引を終了する</button>
+                @else
+                    <button class="deal-submit dummy-btn"type="submit">dummy</button>
+                @endif
+            <div class="model" id="reviewModel">
+                <div class="model-content">
+                    <h2>取引が完了しました</h2>
+                    <p>今回の取引相手はどうでしたか？</p>
+            <!-- 星評価 -->
+                    <div id="star">
+                        <span class="star" data-value="1">★</span>
+                        <span class="star" data-value="2">★</span>
+                        <span class="star" data-value="3">★</span>
+                        <span class="star" data-value="4">★</span>
+                        <span class="star" data-value="5">★</span>
+                    </div>
+            <!-- フォーム -->
+                    <form action="{{ route('review.store',['order'=>$order->id])}}" method="POST">
+                    @csrf
+                    <input type="hidden" name="rating" id="rating">
+                    <div class="model-content-btn">
+                        <button class="model-submit" type="submit">送信する</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
     </div><!--deal-header-->
         <div class="product-information">
             <div class="product-img">
@@ -79,13 +106,19 @@
             </div><!--chat-message-->
         @endif
     @endforeach
+    <img src="" alt="プレビュー画像" id="preview" class="preview">
         <footer class="message-footer">
             <form action="{{ route('message.store',['id' => $order->id]) }}" method="POST" class="deal-message" enctype="multipart/form-data">
             @csrf
+            <div class="error">
+                @error('message_text')
+                    {{$message}}
+                @enderror
+            </div>
                 <input type="text" name="message_text" placeholder="取引メッセージを記入してください">
                 <label for="file-input">画像を追加
                 </label>
-                <input type="file" name="add-image" id="file-input" hidden>
+                <input type="file" name="add-image" id="file-input" class="d-none">
                 <button type="submit">
                 <img src="{{asset('img/send.jpg')}}" alt="" class="send-img">
                 </button>
@@ -93,4 +126,39 @@
         </footer>
     </div>
 </div><!--message-content-->
+<script>
+    const fileInput = document.getElementById('file-input');
+    const previewImage = document.getElementById('preview');
+
+    fileInput.addEventListener('change', function() {
+    const file = fileInput.files[0];
+    if(file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            previewImage.src = e.target.result;
+            previewImage.style.display = 'block';
+        }
+        reader.readAsDataURL(file);
+    }
+});
+
+const modal = document.getElementById('reviewModel');
+const openModal = document.getElementById('openModel');
+const stars = document.querySelectorAll('.star');
+const ratingInput = document.getElementById('rating');
+
+openModal.addEventListener('click', () => {
+    modal.style.display = 'block';
+    });
+
+stars.forEach(star => {
+        star.addEventListener('click', () => {
+            ratingInput.value = star.dataset.value;
+            stars.forEach(s => s.style.color = 'gray');
+            for (let i = 0; i < star.dataset.value; i++) {
+                stars[i].style.color = 'gold';
+            }
+        });
+    });
+</script>
 @endsection

@@ -77,7 +77,7 @@ aside {
     margin: 0;
 }
 
-.deal-header a {
+.deal-submit {
     display: block;
     margin-left: auto;
     text-decoration: none;
@@ -87,8 +87,13 @@ aside {
     color: white;
     border-radius: 30px;
     text-align: center;
+    font-size: 18px;
     font-weight: bold;
     padding: 12px 0;
+}
+
+.dummy-btn{
+    visibility: hidden;
 }
 
 .product-information {
@@ -202,6 +207,12 @@ aside {
     font-size: 12px;
 }
 
+.error{
+    color: red;
+    font-size: 20px;
+    text-align: center;
+}
+
 .deal-message input {
     width: 800px;
     height: 45px;
@@ -249,3 +260,12 @@ button {
     z-index: 1000;
 }
 
+.d-none{
+    display: none;
+}
+
+.preview{
+    max-width: 150px;
+    height: auto;
+    display: none;
+}

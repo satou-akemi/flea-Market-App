@@ -1,0 +1,59 @@
+.model{
+    position: fixed;
+    left: 55%;
+    top: 60%;
+    transform: translateX(-50%) translateY(-50%);
+    width: fit-content;
+    height: auto;
+    padding: 0;
+    border: 1px solid black;
+    border-radius: 20px;
+    background-color: #FDFCE6;
+    display: none;
+}
+
+.model h2{
+    font-size: 26px;
+    border-bottom: black 1px solid;
+    font-weight: normal;
+    margin: 0;
+    padding: 15px;
+}
+
+.model p{
+    font-size: 16px;
+    color: #868686;
+    padding: 15px 15px 0 15px;
+    margin: 0;
+}
+
+#star{
+    padding: 0 15px;
+    border-bottom: 1px solid black;
+}
+
+.star{
+    display: inline-block;
+    font-size: 80px;
+    color: #d9d9d9;
+    cursor: pointer;
+}
+
+.model-content-btn{
+    display: flex;
+}
+
+.model-submit{
+    display: block;
+    margin-left: auto;
+    text-decoration: none;
+    width: 90px;
+    height: 35px;
+    background-color: #FF8282;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 15px;
+    margin: 15px;
+    margin-left: auto;
+}
