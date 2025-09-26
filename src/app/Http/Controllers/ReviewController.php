@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Review;
 use App\Models\Order;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\CompletionEmail;
+
+
 class ReviewController extends Controller
 {
     public function store(Request $request, $orderId)
@@ -13,21 +17,27 @@ class ReviewController extends Controller
 
         $review = new Review();
         $review->order_id = $order->id;
-        $review->user_id = auth()->id();
+        $review->user_id = $order->product->user_id;
+        $review->reviewer_id = auth()->id();
         $review->role = ($order->buyer_id === auth()->id()) ? 'buyer' : 'seller';
-        $review->rating = $request->rating;
+        $review->rating = $request->input('rating') ?? $request->input('ratingSeller');
         $review->save();
 
         if ($review->role === 'buyer') {
-            $user = $order->buyer;
-        } else {
             $user = $order->product->user;
+        } else {
+            $user = $order->buyer;
         }
-        $user->average_rating = Review::where('user_id', $user->id)->avg('rating');
+        Mail::to($user->email)->send(new CompletionEmail());
 
         return redirect('/')->with('success','レビューを送信しました');
     }
 
-
-
+    public function sendEmail($review){
+        $review = Review::findOrFail($review);
+        $order = $review->order;
+        $sellerEmail = $order->product->user->email;
+        Mail::to($sellerEmail)->send(new CompletionEmail());
+        return redirect()->back();
+    }
 }

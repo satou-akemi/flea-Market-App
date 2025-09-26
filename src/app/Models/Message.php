@@ -15,15 +15,15 @@ class Message extends Model
         'message_text',
     ];
 
-public function user(){
-    return $this->belongsTo(User::class);
-}
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 
-public function order(){
-    return $this->belongsTo(Order::class);
-}
+    public function order(){
+        return $this->belongsTo(Order::class);
+    }
 
-public function review(){
+    public function review(){
         return $this->belongsTo(Review::class);
     }
 }

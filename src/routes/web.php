@@ -89,7 +89,14 @@ Route::middleware('auth')->group(function () {
 
 //edit,delete
     Route::get('/message/{id}/edit',[MessageController::class,'edit'])->name('message.edit');
+    Route::put('/message/{id}/update',[MessageController::class,'update'])->name('message.update');
     Route::delete('/message/{id}',[MessageController::class,'destroy'])->name('message.destroy');
 //その他商品
     Route::get('/message/others/{id}',[MessageController::class,'show'])->name('others.show');
+//自動保存
+    Route::post('/orders/{id}/message/draft', [MessageController::class, 'saveDraft'])
+    ->name('message.saveDraft');
+    Route::get('/orders/{id}', [MessageController::class, 'show'])->name('orders.show');
+//メール送信
+    Route::post('/review/{review}/send-email',[ReviewController::class,'sendEmail']);
 });

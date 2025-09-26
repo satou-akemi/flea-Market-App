@@ -21,25 +21,39 @@ class MessageController extends Controller
         }else{
             $order->messages()->where('is_read_buyer',false)->update(['is_read_buyer' => true]);
         }
-        // その他の取引一覧
-        $orders = Order::where('user_id',$user->id)->where('id','!=' ,$id)->with('product')->get();
+
         // メッセージ取得
         $messages = Message::where('order_id',$order->id)->with('user')->orderBy('created_at')->get();
 
-        if($order->user_id === auth()->id()){
+        if($order->buyer_id === auth()->id()){
             $status = 'is_buyer';
             $client = $order->product->user;
         }else{
             $status = 'is_seller';
-            $client = $order->user;
+            $client = $order->buyer;
         }
+
+        //その他の商品取得
+        $currentOrderIds = $order->id;
+        $deal = $user->currentDeals()->where('id','!=',$currentOrderIds);
+
         // レビュー判定
         $reviewedByBuyer = Review::where('order_id',$order->id)->where('role','buyer')->exists();
 
         $reviewedSeller = Review::where('order_id',$order->id)->where('role','seller')->exists();
 
-        return view('Order.message',compact('order','user','status','orders','client','messages','order','reviewedByBuyer','reviewedSeller'));
+        $draft = $request->session()->get('message_text_'.$id, '');
+
+        return view('Order.message',compact('order','user','status','client','messages','order','reviewedByBuyer','reviewedSeller','currentOrderIds','deal','draft'));
     }
+
+    public function saveDraft(Request $request, $id){
+        // order_idごとにセッション保存
+        $request->session()->put('message_text_'.$id, $request->input('message_text'));
+
+        return response()->json(['success' => true]);
+    }
+
 
     public function store(MessageRequest $request,$id){
         $order = Order::findOrFail($id);
@@ -53,6 +67,7 @@ class MessageController extends Controller
         $message->image_path = $path;
         }
         $message->save();
+        $request->session()->forget('message_text_' . $id);
 
         return redirect()->back();
     }
@@ -61,8 +76,16 @@ class MessageController extends Controller
         $message = Message::findOrFail($id);
 
         return view('messages.edit',compact('message'));
-
     }
+
+    public function update(Request $request,$id){
+        $message = Message::findOrFail($id);
+        $message->message_text = $request->message_text;
+        $message->save();
+
+        return redirect()->route('message.show',['id'=> $message->order_id])->with('success','メッセージを更新しました');
+    }
+
 
     public function destroy($id){
 

@@ -9,7 +9,7 @@
 <aside>
     <p class="others-deal">その他の取引</p>
     <ul class="other-orders">
-        @foreach($orders as $otherOrder)
+        @foreach($deal as $otherOrder)
             @if($otherOrder->id !== $order->id)
                 <li class="dealing">
                     <a href="{{ route('others.show',['id' => $otherOrder->id])}}">{{$otherOrder->product->name}}
@@ -93,6 +93,7 @@
     </div><!--product-information-->
     @foreach($messages as $message)
         @if($message->user->id === auth()->id())
+<!--自分のメッセージ-->
             <div class="chat-message">
                 <div class="my-message">
                 <div class="user-info">
@@ -108,9 +109,13 @@
                     <p class="user-name">{{$message->user->name}}</p>
                 </div><!--user-info-->
                     <p class="message-text">{{$message->message_text}}</p>
-<!--編集削除-->
+                    @if($message->image_path)
+                    <img class="my-message-img" src="{{ asset('storage/' . $message->image_path) }}" alt="message image">
+                    @endif
+<!--編集-->
                 <div class="message-action">
-                    <a href="{{ route('message.edit',$message->id)}}" class="edit-button">編集</a>
+                    <a href="{{ route('message.edit', $message->id)}}" class="edit-button">編集</a>
+<!--削除-->
                     <form action="{{ route('message.destroy',$message->id)}}" method="POST" class="destroy-form">
                         @csrf
                         @method('DELETE')
@@ -121,17 +126,22 @@
         </div><!--chat-message-->
         @else
             <div class="chat-message">
+<!--相手のメッセージ-->
                 <div class="other-message">
                 <div class="user-info">
                 @if($status === 'is_buyer')
                     <div class="buyer-user-img">
                         <img src="{{asset($client->avatar ? 'storage/' .$client->avatar : 'img/default_avatar.png')}}" alt="avatar.jpg">
                     </div>
+                @else
+                    <div class="seller-user-img">
+                        <img src="{{ asset($user->avatar ? 'storage/' .$user->avatar : 'img/default_avatar.png') }}" alt="avatar.jpg">
+                    </div>
                 @endif
                     <p class="user-name">{{$message->user->name}}</p>
                 </div><!--user-info-->
                     <p class="message-text">{{$message->message_text}}</p>
-                    @if($message->image_path)
+                @if($message->image_path)
                     <img src="{{ asset('storage/' . $message->image_path) }}" alt="message image">
                 @endif
                 </div><!--other-message-->
@@ -142,20 +152,23 @@
 <!--form-->
             <form action="{{ route('message.store',['id' => $order->id]) }}" method="POST" class="deal-message" enctype="multipart/form-data">
             @csrf
-            <div class="error">
-                @error('message_text')
+            @error('message_text')
+                <div class="error">
                     {{$message}}
-                @enderror
-            </div>
-                <input type="text" name="message_text" value="{{ old('message_text')}} " placeholder="取引メッセージを記入してください">
-
+                </div>
+            @enderror
+            @error('add-image')
+                <div class="error">
+                    {{$message}}
+                </div>
+            @enderror
+            <!-- プレビュー画像 -->
+                <img src="" alt="プレビュー画像" id="preview" class="preview" style="display:none">
+                <input type="text" name="message_text" value="{{ $draft }}" placeholder="取引メッセージを記入してください">
 <!-- 画像追加ボタン -->
                 <label for="file-input">画像を追加
                 </label>
                 <input type="file" name="add-image" id="file-input" class="d-none">
-
-<!-- プレビュー画像 -->
-                <img src="" alt="プレビュー画像" id="preview" class="preview" style="display:none">
                 <button type="submit">
                     <img src="{{asset('img/send.jpg')}}" alt="" class="send-img">
                 </button>
@@ -167,7 +180,22 @@
 
 @section('js')
 <script>
+    //自動保存
     document.addEventListener('DOMContentLoaded', () => {
+    const input = document.querySelector('[name="message_text"]');
+    const token = document.querySelector('meta[name="csrf-token"]').content;
+
+    input.addEventListener('input', () => {
+        fetch("{{ route('message.saveDraft', $order->id) }}", {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': token,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ message_text: input.value })
+        });
+    });
+
     // モーダルを開くボタン
     document.querySelectorAll('.deal-submit[data-target]').forEach(button => {
         button.addEventListener('click', () => {
@@ -205,7 +233,7 @@
 
     document.querySelectorAll('.model-submit').forEach(button => {
         button.addEventListener('click', () => {
-            const modal = submit.closest('.model');
+            const modal = button.closest('.model');
             if(modal) modal.style.display = 'none';
         });
     });
@@ -229,9 +257,14 @@ if(fileInput && previewImage){
         }
     });
 }
-
-
 });
+window.addEventListener('DOMContentLoaded', () => {
+    const sellerModal = document.getElementById('reviewModalSeller');
+    if(sellerModal){
+        sellerModal.style.display = 'block';
+    }
+});
+
 
 </script>
 

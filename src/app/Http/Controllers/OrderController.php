@@ -71,31 +71,26 @@ class OrderController extends Controller
             }
     }
 
-    public function success(Request $request)
-    {
+    public function success(Request $request){
         $productId = session('purchased_product_id');
-        $userId = Auth::id();
+        $product = Product::find($productId);
 
-        if ($productId) {
-            $product = Product::find($productId);
-            if ($product && $product->status !== 'sold') {
-                $product->status = 'sold';
-                $product->is_sold = true;
-                $product->save();
-            }
+        $product->status = 'sold';
+        $product->is_sold = 1;
+        $product->save();
 
-            Order::create([
-                'user_id' => Auth::id(),
-                'product_id' => $product->id,
-                'total_amount' =>
-                $product->price,
-                'payment_status' => 'paid',
-                'order_status' => 'completed',
-                'address_id' => optional(Auth::user()->address)->id,
-
-            ]);
-            session()->forget('purchased_product_id');
-        }
+        Order::create([
+            'user_id' => $product->user_id,
+            'buyer_id' => auth()->id(),
+            'product_id' => $product->id,
+            'total_amount' =>
+            $product->price,
+            'payment_status' => 'paid',
+            'order_status' => 'completed',
+            'is_dealing' => 1,
+            'address_id' => optional(Auth::user()->address)->id,
+        ]);
+        session()->forget('purchased_product_id');
 
         return redirect('/')->with('message', '購入が完了しました。');
     }
@@ -108,14 +103,19 @@ class OrderController extends Controller
     public function store(Request $request)
 {
     $product = Product::findOrFail($request->product_id);
+    $product->status = 'sold';
+    $product->is_sold = 1;
+    $product->save();
 
     Order::create([
-        'user_id' => Auth::id(),
+        'user_id' => $product->user->id,
+        'buyer_id' => auth()->id(),
         'product_id' => $product->id,
         'payment_method' => $request->payment_method,
         'total_amount' => $product->price,
         'payment_status' => 'paid',
         'order_status' => 'completed',
+        'is_dealing' => 1,
         'address_id' => optional(Auth::user()->address)->id,
     ]);
 

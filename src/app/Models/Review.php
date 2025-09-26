@@ -13,6 +13,7 @@ class Review extends Model
         'order_id',
         'rating',
         'role',
+        'reviewer_id',
     ];
 
     public function user(){
@@ -25,5 +26,9 @@ class Review extends Model
 
     public function message(){
         return $this->belongsTo(Message::class);
+    }
+
+    public function reviewer(){
+        return $this->belongsTo(User::class,'reviewer_id');
     }
 }

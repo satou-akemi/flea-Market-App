@@ -13,7 +13,7 @@
                 <h2 class="user_name">{{ $user->name }}</h2>
                 <div class="user-rating">
                 @for($i = 1; $i <= 5; $i++)
-                    @if($i <= $user->average_rating)
+                    @if($i <= $user->averageRating())
                         <span class="star-filled">★</span>
                     @else
                         <span class="star">★</span>
@@ -25,8 +25,6 @@
             <a href="/mypage/profile" class="edit-link__button">プロフィールを編集</a>
         </div><!--edit-link-->
     </div><!--image-space-->
-
-
 <!--切り替えタグ-->
 <!--出品した商品-->
     <div class="tab-list">

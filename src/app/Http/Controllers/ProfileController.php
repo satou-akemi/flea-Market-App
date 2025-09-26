@@ -18,41 +18,58 @@ class ProfileController extends Controller
     }
 
     public function show(Request $request){
-        $user = Auth::user();
-        $page = $request->input('page' ,'sell');//リクエストからタブを取り出しなければsellを使う
+    $user = Auth::user();
+    $page = $request->input('page', 'sell');
 
-        $listedProduct = $user->products()->latest()->get();
-        //userが出品した商品を新しい順で取得しlistedproductへ代入
+    // 出品した商品
+    $listedProduct = $user->products()->latest()->get();
 
-        $purchasedProduct = $user->purchasedProducts()->latest()->get();
+    $purchasedProduct = [];
+    $purchasedProductIds = [];
 
-        $purchasedProduct = $user->orders()
+    // 購入した商品（購入済み）
+    $ordersAsBuyer = Order::where('buyer_id', $user->id)
         ->with('product')
         ->latest()
-        ->get()
-        ->pluck('product')
-        ->filter(fn($product) => $product && $product->isSold())
-        ->unique('id')
-        ->values();
+        ->get();
 
-        $dealAsBuyer = $user->orders()->where('is_dealing',true)->with('product','messages')->get();
-
-        $sellerProductIds = $user->products()->pluck('id');
-        $dealAsSeller = Order::whereIn('product_id',$sellerProductIds)->where('is_dealing',true)->with('product','messages')->get();
-
-        $deal = $dealAsBuyer->merge($dealAsSeller);
-
-        $deal = $deal->sortByDesc(function ($order){
-        $latestMessage = $order->messages->sortByDesc('created_at')->first();
-        if($latestMessage){
-            return $latestMessage->created_at;
-        }else{
-            return null;
+    foreach ($ordersAsBuyer as $order) {
+    $product = $order->product;
+    if ($product) {
+        if ($product->isSold()) {
+            $alreadyAdded = false;
+            foreach ($purchasedProductIds as $addedId) {
+                if ($addedId == $product->id) {
+                    $alreadyAdded = true;
+                    break;
+                }
+            }
+            // 追加されていなければ配列に追加
+            if ($alreadyAdded == false) {
+                $purchasedProduct[] = $product;
+                $purchasedProductIds[] = $product->id;
+            }
         }
-        });
-
-        return view('Profile.show',compact('user','page','listedProduct','purchasedProduct','deal'));
     }
+}
+
+    // 取引中の商品
+    $deal = Order::where(function($query) use ($user){
+            $query->where('user_id', $user->id)
+                ->orWhere('buyer_id', $user->id);
+        })
+        ->where('is_dealing', 1)
+        ->with('product', 'messages')
+        ->get();
+
+    // メッセージの最新日時でソート
+    $deal = $deal->sortByDesc(function($order){
+        $latest = $order->messages->last();
+        return $latest ? $latest->created_at : null;
+    });
+
+    return view('Profile.show', compact('user', 'page', 'listedProduct', 'purchasedProduct', 'deal'));
+}
 
     public function __construct(){
         $this->middleware('auth');

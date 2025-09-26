@@ -67,12 +67,27 @@ class User extends Authenticatable implements MustVerifyEmail//ここ
 
     public function reviews()
     {
-        return $this->hasMany(ProductReview::class);
+        return $this->hasMany(Review::class,'user_id');
     }
 
     public function averageRating()
     {
         return round($this->reviews()->avg('rating'));
+    }
+
+    public function currentDeals(){
+        // 購入者としての取引
+        $dealAsBuyer = $this->orders()->where('is_dealing',true)->with('product','messages')->get();
+
+        // 出品者としての取引
+        $sellerProductIds = $this->products()->pluck('id');
+        $dealAsSeller = Order::whereIn('product_id',$sellerProductIds)->where('is_dealing',true)->with('product','messages')->get();
+
+        return $dealAsBuyer->merge($dealAsSeller);
+    }
+
+    public function Reviewer(){
+        return $this->hasMany(Review::class, 'reviewer_id');
     }
 
     /**
