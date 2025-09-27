@@ -148,6 +148,8 @@
             </div><!--chat-message-->
         @endif
     @endforeach
+<!-- プレビュー画像 -->
+        <img src="" alt="" id="preview" class="preview">
         <footer class="message-footer">
 <!--form-->
             <form action="{{ route('message.store',['id' => $order->id]) }}" method="POST" class="deal-message" enctype="multipart/form-data">
@@ -162,8 +164,6 @@
                     {{$message}}
                 </div>
             @enderror
-            <!-- プレビュー画像 -->
-                <img src="" alt="プレビュー画像" id="preview" class="preview" style="display:none">
                 <input type="text" name="message_text" value="{{ $draft }}" placeholder="取引メッセージを記入してください">
 <!-- 画像追加ボタン -->
                 <label for="file-input">画像を追加

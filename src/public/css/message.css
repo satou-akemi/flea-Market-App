@@ -6,14 +6,14 @@
 }
 
 aside {
-    width: 200px;
+    width: 18%;
     min-height: 100vh;
     background: #868686;
     overflow-y: auto;
 }
 
 .others-deal {
-    font-size: 25px;
+    font-size: 23px;
     font-weight: bold;
     color: white;
     text-align: center;
@@ -32,9 +32,8 @@ aside {
     flex-direction: column;
     align-items: center;
     width: 150px;
-    height: 40px;
     padding: 4px;
-    margin: 20px auto;
+    margin: 15px auto;
     color: black;
     background-color: #EEEFEB;
     border: 1px solid #86868686;
@@ -44,7 +43,7 @@ aside {
     font-size: 16px;
 }
 
-.other-orders a{
+.other-orders a {
     text-decoration: none;
     color: black;
 
@@ -76,6 +75,7 @@ aside {
 
 .deal-title {
     margin: 0;
+    font-size: 25px;
 }
 
 .deal-submit {
@@ -94,7 +94,7 @@ aside {
     cursor: pointer;
 }
 
-.dummy-btn{
+.dummy-btn {
     visibility: hidden;
     display: inline-block;
 }
@@ -107,19 +107,19 @@ aside {
 }
 
 .product-img img {
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
 }
 
 .product-name {
     margin: 25px 30px;
-    font-size: 40px;
+    font-size: 30px;
     font-weight: bold;
 }
 
 .product-price {
     margin: 25px 30px;
-    font-size: 23px;
+    font-size: 18px;
 }
 
 .chat-message {
@@ -182,6 +182,13 @@ aside {
     border-radius: 5px;
 }
 
+.message-content img {
+    max-width: 400px;
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
+
 .message-action {
     display: flex;
     gap: 10px;
@@ -211,7 +218,7 @@ aside {
     font-size: 12px;
 }
 
-.error{
+.error {
     color: red;
     font-size: 20px;
     text-align: center;
@@ -253,31 +260,75 @@ button {
 
 .message-footer {
     position: fixed;
-    display: block;
     bottom: 0;
-    left: 200px;
-    width: 1200px;
+    left: 20%;
+    width: 80%;
     background-color: #fff;
-    padding: 10px 20px;
+    padding: 10px 0;
     display: flex;
     justify-content: center;
     z-index: 1000;
 }
 
-.d-none{
+.deal-message {
+    width: 90%;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.deal-message input {
+    width: 90%;
+    height: 40px;
+    padding: 5px 10px;
+    border: 1px solid #5F5F5F;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.deal-message label {
+    width: 20%;
+    height: auto;
+    color: #FF5555;
+    border: 1px solid #FF5555;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 8px 0;
+    margin-left: 15px;
+    text-align: center;
+    cursor: pointer;
+}
+
+button {
+    border: none;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0;
+    background-color: white;
+}
+
+.send-img {
+    width: 60px;
+    height: 50px;
+    cursor: pointer;
+}
+
+.d-none {
     display: none;
 }
 
-.preview{
-    max-width: 150px;
-    height: auto;
-    display: none;
+.preview {
+    width: 200px;
+    height: 200px;
 }
 
 @media screen and (min-width:768px) and (max-width:850px) {
 .container {
-    width: 100%;
     max-width: 100%;
+    width: 100%;
     }
 
 aside {
@@ -293,6 +344,8 @@ aside {
     }
 
 .dealing {
+    display: flex;
+    flex-direction: column;
     width: 70%;
     height: auto;
     padding: 5px;
@@ -302,7 +355,7 @@ aside {
 }
 
 .message-content img{
-    max-width: 100%;
+    max-width: 200px;
     height: auto;
     display: block;
     object-fit: contain;
@@ -395,11 +448,19 @@ aside {
     border-radius: 5px;
 }
 
+.message-content img {
+    max-width: 300px;
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
+
 .message-action {
     display: flex;
     gap: 5px;
     margin-top: 3px;
     justify-content: flex-end;
+    align-items: center;
 }
 
 .edit-button,
@@ -433,7 +494,7 @@ aside {
     position: fixed;
     bottom: 0;
     left: 17%;
-    width: 85%;
+    width: 80%;
     background-color: #fff;
     padding: 5px 0;
     display: flex;
@@ -492,8 +553,7 @@ button {
 }
 
 .preview{
-    max-width: 150px;
-    height: auto;
-    display: none;
+    width: 150px;
+    height: 150px;
 }
 }
