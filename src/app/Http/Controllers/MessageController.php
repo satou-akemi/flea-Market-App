@@ -34,8 +34,8 @@ class MessageController extends Controller
         }
 
         //その他の商品取得
-        $currentOrderIds = $order->id;
-        $deal = $user->currentDeals()->where('id','!=',$currentOrderIds);
+        $currentOrderId = $order->id;
+        $deal = $user->currentDeals()->where('id','!=',$currentOrderId);
 
         // レビュー判定
         $reviewedByBuyer = Review::where('order_id',$order->id)->where('role','buyer')->exists();
@@ -44,7 +44,7 @@ class MessageController extends Controller
 
         $draft = $request->session()->get('message_text_'.$id, '');
 
-        return view('Order.message',compact('order','user','status','client','messages','order','reviewedByBuyer','reviewedSeller','currentOrderIds','deal','draft'));
+        return view('Order.message',compact('order','user','status','client','messages','order','reviewedByBuyer','reviewedSeller','currentOrderId','deal','draft'));
     }
 
     public function saveDraft(Request $request, $id){

@@ -17,8 +17,4 @@
     box-sizing: border-box;
 }
 
-@media screen and (max-width: 768px) {
-    .header__inner{
-        padding: 0 10px;
-    }
-}
+

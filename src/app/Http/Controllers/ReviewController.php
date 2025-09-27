@@ -16,10 +16,16 @@ class ReviewController extends Controller
         $order = Order::with('product.user')->findOrFail($orderId);
 
         $review = new Review();
-        $review->order_id = $order->id;
-        $review->user_id = $order->product->user_id;
-        $review->reviewer_id = auth()->id();
         $review->role = ($order->buyer_id === auth()->id()) ? 'buyer' : 'seller';
+
+        if($review->role == 'seller'){
+            $review->user_id = $order->buyer_id;
+        }else{
+            $review->user_id = $order->product->user_id;
+        }
+
+        $review->order_id = $order->id;
+        $review->reviewer_id = auth()->id();
         $review->rating = $request->input('rating') ?? $request->input('ratingSeller');
         $review->save();
 
